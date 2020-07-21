@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <section>
+        Créer deux boutons + et - pour incrémenter/décrémenter un compteur
+    </section>
+    {{ nombre }}
+    <button @click="decremente">-</button>
+    <button @click="incremente">+</button>
+
+    <section>
+        Afficher une alerte JS avec un bouton
+    </section>
+    <button @click="showAlert">showAlert</button>
+
+
+    <section>
+    Afficher ou caher une balise avec v-if et v-show
+    </section>
+    <a v-show="seen" href="https://www.youtube.com/?reload=9&hl=fr&gl=FR">YouTube</a>
+    <button @click="showLink">show/hideLink</button>
+  </div>
+  
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        nombre:0,
+        seen:false
+      },
+      methods:{
+        incremente(){
+            this.nombre=this.nombre+1
+        },
+        decremente(){
+            this.nombre=this.nombre-1
+        },
+        showAlert(){
+            alert("Ceci est une alerte JS")
+        },
+        showLink(){
+            this.seen=!this.seen
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>
