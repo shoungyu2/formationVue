@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="filtre" >
+    <ul>
+        <li v-for="nom in filtreNom">{{nom}}</li>
+    </ul>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+          listeNom:["Harry","Ross",
+                        "Bruce","Cook",
+                        "Carolyn","Morgan",
+                        "Albert","Walker",
+                        "Randy","Reed",
+                        "Larry","Barnes",
+                        "Lois","Wilson",
+                        "Jesse","Campbell",
+                        "Ernest","Rogers",
+                        "Theresa","Patterson",
+                        "Henry","Simmons",
+                        "Michelle","Perry",
+                        "Frank","Butler",
+                        "Shirley"],
+          filtre:""
+      },
+      computed:{
+        filtreNom(){
+            const filtre=this.filtre
+            return this.listeNom.filter(nom => nom.includes(filtre))
+        }
+      }
+
+    })
+  </script>
+</body>
+</html>
