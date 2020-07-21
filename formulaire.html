@@ -26,26 +26,26 @@
   <div id="app">
     <h1>Création Formulaire</h1>
     <form ref="form">
-      <div class="error_message">Le formulaire est invalide</div>
-      <div class="field">
+      <div v-show="!isFormValid" class="error_message">Le formulaire est invalide</div>
+      <div class="field" :class="{field_error:!verifNom}">
         <label for="nom">Nom</label>
-        <input name="nom" type="text"/>
+        <input name="nom" type="text" v-model="nom"/>
         <div class="error_message">Le Nom doit être en majuscule et contenir entre 3 et 10 lettres</div>
       </div>
 
-      <div class="field field_error">
+      <div class="field" :class="{field_error:!verifPrenom}">
         <label for="prenom">Prénom</label>
-        <input name="prenom" type="text"/>
+        <input name="prenom" type="text" v-model="prenom"/>
         <div class="error_message">Le prénom doit être capitalisé</div>
       </div>
 
-      <div class="field">
+      <div class="field" :class="{field_error:!verifEmail}">
         <label for="email">Email</label>
-        <input name="email" type="email"/>
+        <input name="email" type="email" v-model="email"/>
         <div class="error_message">Vous devez saisir une adresse email valide</div>
       </div>
 
-      <button type="button" disabled>Envoyer</button>
+      <button type="button" :disabled="!isFormValid" @click="send">Envoyer</button>
     </form>
   </div>
 
@@ -57,6 +57,33 @@
 
     var app = new Vue({
       el: '#app',
+      data:{
+        nom:"",
+        prenom:"",
+        email:""
+      },
+      methods:{
+        send(){
+          this.nom=""
+          this.prenom=""
+          this.email=""
+          alert("Formulaire envoyé")
+        }
+      },
+      computed:{
+        verifNom(){
+          return this.nom.length>=3 && this.nom.length<=10 && this.nom===this.nom.toUpperCase()
+        },
+        verifPrenom(){
+          return this.prenom===capitalize(this.prenom) && this.prenom.length!==0
+        },
+        verifEmail(){
+          return emailRegexp.test(this.email)
+        },
+        isFormValid(){
+          return this.verifNom&&this.verifPrenom&&this.verifEmail
+        }
+      }
     })
   </script>
 </body>
